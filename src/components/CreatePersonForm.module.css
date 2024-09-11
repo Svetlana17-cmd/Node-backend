@@ -1,0 +1,16 @@
+.form {
+	margin: 10px auto 30px;
+}
+
+.form input {
+	paddin: 5px 10px;
+	border: 1px solid ;
+	outline: none;
+	margin-bottom: 10px;
+	transition: border-color .4s ease;
+	border: 1px solid transparent;
+}
+
+.form input:focus {
+	border-color:  blue;
+}
