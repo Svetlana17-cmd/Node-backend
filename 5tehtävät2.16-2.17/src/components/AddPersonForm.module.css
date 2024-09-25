@@ -1,0 +1,33 @@
+.form {
+	margin: 10px auto 30px;
+}
+.form input {
+	padding: 5px 10px;
+	border: 1px solid #f4511e;
+	border-radius: 5px;
+	outline: none;
+	margin-bottom: 10px;
+	transition: border-color .4s ease;
+}
+.form input:focus {
+	border-color: blue;
+}
+.form label {
+	color: black;
+	font-size: 20px;
+}
+.btn {
+	font-size: 20px;
+	padding: 6px 20px;
+	border: none;
+	border-radius: 5px;
+	margin-left: 10px; 
+	background-color: #f4511e;
+	color: #fff;
+	opacity: 0.6;
+	transition: 0.3s;
+	display: inline-block;
+  	text-decoration: none;
+  	cursor: pointer;
+}
+.btn:hover {opacity: 2}

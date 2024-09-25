@@ -1,12 +1,12 @@
-
 import React from 'react';
+import styles from './AddPersonForm.module.css';
 
 const AddPersonForm = ({ addPerson, newName, phone, handleNameChange, handleNumberChange }) => {
 
 
 	return (
 		<div>
-			<form onSubmit={addPerson}>
+			<form onSubmit={addPerson} className={styles.form}>
 				<label>
 					name:
 					<input
@@ -26,9 +26,10 @@ const AddPersonForm = ({ addPerson, newName, phone, handleNameChange, handleNumb
 						placeholder=""
 					/>
 				</label>
-
 				<div>
-					<button type='submit'>add</button>
+					<button type='submit' className={styles.btn} onClick={e => AddPersonForm(e)} >
+						add
+					</button>
 				</div>
 			</form>
 		</div>

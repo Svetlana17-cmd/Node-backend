@@ -1,9 +1,8 @@
-import React from 'react';
-
 const FilterForm = ({ searchName, handleSearchChange }) => {
+
 	return (
 		<div>
-			<label>
+			<label style={{ color: 'black', fontSize: 20 }}>
 				filter:
 				<input
 					type="text"
@@ -12,7 +11,7 @@ const FilterForm = ({ searchName, handleSearchChange }) => {
 					placeholder=""
 				/>
 			</label>
-		</div>
+		</div >
 	);
 };
 
