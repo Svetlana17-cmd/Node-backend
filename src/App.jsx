@@ -33,6 +33,10 @@ const App = () => {
 			})
 			.catch(error => {
 				console.error('Error fetching persons:', error);
+				setError('Error fetching persons');
+				setTimeout(() => {
+					setError('');
+				 }, 5000);
 			});
 	}, [])
 
@@ -42,7 +46,6 @@ const App = () => {
 		const personObject = {
 			name: newName,
 			number: phone,
-			important: Math.random() > 0.5
 		};
 		const nameExists = persons.some(person => person.name === newName);
 		if (nameExists) {
@@ -61,6 +64,7 @@ const App = () => {
 					setFilteredPersons(updatedPersons);
 					setNewName('');
 					setPhone('');
+					showMessage(`Added ${newName}`);
 				})
 				.catch(error => {
 					console.error('There was an error adding the person!', error);
@@ -81,8 +85,8 @@ const App = () => {
 		setFilteredPersons(filtered);
 	};
 
-	const deletePerson = (id, name) => {
-		setError(`Deleting ${name}...`);
+	const deletePerson = (id, person) => {
+		setError(`Deleting ${person}...`);
 		personService
 			.delete(id)
 			.then(() => {
@@ -90,7 +94,7 @@ const App = () => {
 				setPersons(updatedPersons);
 				setFilteredPersons(updatedPersons);
 				setError('');
-				showMessage(`Deleted ${name}`);
+				showMessage(`Deleted ${person}`);
 			})
 			.catch(error => {
 				setError('There was an error deleting the person!');

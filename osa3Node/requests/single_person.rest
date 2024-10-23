@@ -1,0 +1,5 @@
+GET http://localhost:3001/api/persons/1
+### tähän voin laittaa kommenti
+# myös
+# myös
+GET http://localhost:3001/api/persons/2

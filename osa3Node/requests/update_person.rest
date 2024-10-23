@@ -1,0 +1,15 @@
+PUT http://localhost:3001/api/persons/1
+Content-Type: application/json
+
+{
+	"id": "5",
+	"name": "newName",
+	"number": ""
+}
+### rikotaan id2 
+PUT http://localhost:3001/api/persons/2
+Content-Type: application/json
+
+{
+	"name": "No name"
+}
