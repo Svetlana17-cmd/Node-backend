@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const morgan = require("morgan");
 
 let persons = [
 	{
@@ -25,13 +26,12 @@ let persons = [
 	},
 ];
 
-const requestLogger = (request, response, next) => {
-	console.log("Method:", request.method);
-	console.log("Path:", request.path);
-	console.log("Body:", request.body);
-	console.log("---");
-	next();
-};
+morgan.token("body", (request) => JSON.stringify(request.body));
+app.use(
+	morgan(
+		":method :url :status :res[content-length] - :response-time ms :body",
+	),
+);
 
 app.use(express.json());
 app.use(cors());
