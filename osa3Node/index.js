@@ -25,6 +25,7 @@ let persons = [
 		"number": "39-23-6423122",
 	},
 ];
+app.use(express.static("dist"));
 
 morgan.token("body", (request) => JSON.stringify(request.body));
 app.use(
