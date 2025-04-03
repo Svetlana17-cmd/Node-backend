@@ -7,7 +7,7 @@ import styles from './App.module.css';
 
 const App = () => {
 
-	const [newName, setNewName] = useState('');
+	const [name, setName] = useState('');
 	const [phone, setPhone] = useState('');
 	const [searchName, setSearchName] = useState('');
 	const [persons, setPersons] = useState([]);
@@ -39,18 +39,29 @@ const App = () => {
 				 }, 5000);
 			});
 	}, [])
-
+	
+	useEffect(() => {
+    		const updatedFilteredPersons =
+      		searchName === ''
+        	? persons
+        	: persons.filter((person) =>
+           	 person.name.toLowerCase().includes(searchName.toLowerCase()),
+          	);
+    	setFilteredPersons(updatedFilteredPersons || []);
+  	}, [searchName, persons]);
+	
 	const addPerson = (event) => {
 		event.preventDefault();
 		setError('')
 		const personObject = {
-			name: newName,
+			name: name,
 			number: phone,
 		};
-		const nameExists = persons.some(person => person.name === newName);
+		const nameExists = 
+			Array.isArray(persons) && persons.some(person => person.name === newName);
 		if (nameExists) {
-			setError(`The person ${newName} is already added to Phone book`);
-			setNewName('');
+			setError(`The person ${name} is already added to Phone book`);
+			setName('');
 			setPhone('');
 			setTimeout(() => {
 				setError('');
@@ -62,9 +73,9 @@ const App = () => {
 					const updatedPersons = persons.concat(response.data);
 					setPersons(updatedPersons);
 					setFilteredPersons(updatedPersons);
-					setNewName('');
+					setName('');
 					setPhone('');
-					showMessage(`Added ${newName}`);
+					showMessage(`Added ${name}`);
 				})
 				.catch(error => {
 					console.error('There was an error adding the person!', error);
@@ -77,12 +88,7 @@ const App = () => {
 		}
 	};
 	const handleSearchChange = (event) => {
-		const searchValue = event.target.value.toLowerCase();
-		setSearchName(searchValue);
-		const filtered = persons.filter(person =>
-			person.name && person.name.toLowerCase().includes(searchValue)
-		);
-		setFilteredPersons(filtered);
+		setSearchName(event.target.value.toLowerCase());
 	};
 
 	const deletePerson = (id, person) => {
@@ -118,17 +124,18 @@ const App = () => {
 			{error && <div id="error-message" className={styles.error}>{error}</div>}
 			{message && <div id="success-message" className={styles.success}>{message}</div>}
 			<FilterForm searchName={searchName} handleSearchChange={handleSearchChange} />
-			<h2 styles={{ color: 'black', fontSize: 30, marginBottom: "20 px" }}>Add a new</h2>
+			<h2 style={{ color: 'black', fontSize: 30, marginBottom: "20 px" }}>Add a new</h2>
 			<AddPersonForm
 				addPerson={addPerson}
 				handleNameChange={handleNameChange}
 				handleNumberChange={handleNumberChange}
-				newName={newName}
+				newName={name}
 				phone={phone}
 			/>
-			<h2 styles={{ color: 'black', fontSize: 30, marginBottom: "20 px" }}>Numbers</h2>
+			<h2 style={{ color: 'black', fontSize: 30, marginBottom: "20 px" }}>Numbers</h2>
 			<ul>
-				{filteredPersons && filteredPersons.map(person => (
+				{Array.isArray(filteredPersons) &&
+					filteredPersons && filteredPersons.map(person => (
 					<PersonList
 						key={person.id}
 						person={person}
